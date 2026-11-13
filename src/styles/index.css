@@ -1,0 +1,558 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #060a1f;
+  overflow: hidden;
+  font-family: Mukta, 'Noto Sans Devanagari', 'Nirmala UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid #ffd166;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.sr-only-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Person colour hooks (used inside SVG <use>) ---------- */
+.skin {
+  fill: var(--skin, #7a4a2e);
+}
+.skin-stroke {
+  stroke: var(--skin, #7a4a2e);
+}
+.hair {
+  fill: var(--hair, #140b08);
+}
+.cloth {
+  fill: currentColor;
+}
+.rim {
+  stroke: var(--rim, transparent);
+}
+
+/* ---------- Generic SVG animation helpers ---------- */
+.svg-anim {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+/* flames & diyas */
+.anim-flicker {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flicker var(--dur, 1.1s) ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  0% {
+    transform: scale(1, 1) skewX(0deg);
+  }
+  35% {
+    transform: scale(0.9, 1.1) skewX(-4deg);
+  }
+  70% {
+    transform: scale(1.06, 0.94) skewX(3deg);
+  }
+  100% {
+    transform: scale(0.95, 1.06) skewX(-2deg);
+  }
+}
+
+.anim-glow {
+  animation: glowpulse var(--dur, 2.4s) ease-in-out infinite alternate;
+}
+@keyframes glowpulse {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* water */
+.anim-wave {
+  animation: waveX var(--dur, 12s) linear infinite;
+}
+@keyframes waveX {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-320px);
+  }
+}
+
+.anim-shimmer {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: shimmer var(--dur, 2.6s) ease-in-out infinite alternate;
+}
+@keyframes shimmer {
+  from {
+    transform: scaleX(0.45);
+    opacity: 0.35;
+  }
+  to {
+    transform: scaleX(1.15);
+    opacity: 1;
+  }
+}
+
+.anim-ripple {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: ripple var(--dur, 4s) ease-out infinite;
+  opacity: 0;
+}
+@keyframes ripple {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.anim-bob {
+  animation: bob var(--dur, 3.2s) ease-in-out infinite alternate;
+}
+@keyframes bob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--amp, 4px));
+  }
+}
+
+.anim-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway var(--dur, 5s) ease-in-out infinite alternate;
+}
+@keyframes sway {
+  from {
+    transform: rotate(-1.6deg);
+  }
+  to {
+    transform: rotate(1.6deg);
+  }
+}
+
+/* sky */
+.anim-drift {
+  animation: drift var(--dur, 140s) linear infinite;
+}
+@keyframes drift {
+  from {
+    transform: translateX(-500px);
+  }
+  to {
+    transform: translateX(2100px);
+  }
+}
+
+.anim-fly {
+  animation: fly var(--dur, 22s) linear infinite;
+}
+@keyframes fly {
+  0% {
+    transform: translate(-160px, 20px);
+  }
+  50% {
+    transform: translate(820px, -50px);
+  }
+  100% {
+    transform: translate(1800px, 10px);
+  }
+}
+
+.anim-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flap var(--dur, 0.55s) ease-in-out infinite alternate;
+}
+@keyframes flap {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(-0.55);
+  }
+}
+
+.anim-twinkle {
+  animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.anim-spin {
+  animation: spin var(--dur, 160s) linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-pulse-ray {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: pulseRay var(--dur, 6s) ease-in-out infinite alternate;
+}
+@keyframes pulseRay {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+/* particles & smoke */
+.anim-float {
+  animation: floatUp var(--dur, 9s) ease-in infinite;
+  opacity: 0;
+}
+@keyframes floatUp {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--op, 0.9);
+  }
+  100% {
+    transform: translate(var(--dx, 20px), var(--dy, -160px));
+    opacity: 0;
+  }
+}
+
+.anim-smoke {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: smoke var(--dur, 5s) ease-out infinite;
+  opacity: 0;
+}
+@keyframes smoke {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(var(--dx, 18px), -90px) scale(1.7);
+    opacity: 0;
+  }
+}
+
+.anim-drift-slow {
+  animation: driftSlow var(--dur, 60s) linear infinite;
+}
+@keyframes driftSlow {
+  from {
+    transform: translateX(-80px);
+  }
+  to {
+    transform: translateX(var(--dx, 520px));
+  }
+}
+
+.anim-note {
+  animation: noteUp var(--dur, 8s) ease-in infinite;
+  opacity: 0;
+}
+@keyframes noteUp {
+  0% {
+    transform: translate(0, 0) rotate(-6deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(22px, -70px) rotate(6deg);
+  }
+  100% {
+    transform: translate(-6px, -150px) rotate(-6deg);
+    opacity: 0;
+  }
+}
+
+/* arm / tool animations — pivot at the shoulder, set inline via transformOrigin */
+.arm-sweep {
+  animation: armSweep 1.6s ease-in-out infinite alternate;
+}
+@keyframes armSweep {
+  from {
+    transform: rotate(-9deg);
+  }
+  to {
+    transform: rotate(9deg);
+  }
+}
+.arm-stir {
+  animation: armStir 1.2s ease-in-out infinite alternate;
+}
+@keyframes armStir {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+.arm-roll {
+  animation: armRoll 0.9s ease-in-out infinite alternate;
+}
+@keyframes armRoll {
+  from {
+    transform: rotate(-4deg) translateX(-3px);
+  }
+  to {
+    transform: rotate(4deg) translateX(3px);
+  }
+}
+.arm-bob {
+  animation: armBob 3.4s ease-in-out infinite alternate;
+}
+@keyframes armBob {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+.arm-bathe {
+  animation: armBathe var(--dur, 6s) ease-in-out infinite;
+}
+@keyframes armBathe {
+  0%,
+  15% {
+    transform: rotate(14deg);
+  }
+  45%,
+  70% {
+    transform: rotate(-36deg);
+  }
+  100% {
+    transform: rotate(14deg);
+  }
+}
+.arm-give {
+  animation: armGive var(--dur, 4s) ease-in-out infinite;
+}
+@keyframes armGive {
+  0%,
+  100% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-12deg);
+  }
+}
+
+/* pouring (arghya) — tilt the vessel and show the stream in sync */
+.anim-pour {
+  transform-box: view-box;
+  animation: pourTilt var(--dur, 6s) ease-in-out infinite;
+}
+@keyframes pourTilt {
+  0%,
+  18% {
+    transform: rotate(0deg);
+  }
+  38%,
+  74% {
+    transform: rotate(42deg);
+  }
+  92%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.anim-stream {
+  stroke-dasharray: 7 6;
+  animation: streamFade var(--dur, 6s) ease-in-out infinite, streamFlow 0.45s linear infinite;
+  opacity: 0;
+}
+@keyframes streamFade {
+  0%,
+  34% {
+    opacity: 0;
+  }
+  42%,
+  72% {
+    opacity: 0.95;
+  }
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes streamFlow {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+
+.anim-puff {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: puff var(--dur, 2.4s) ease-in-out infinite;
+}
+@keyframes puff {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18, 0.9);
+  }
+}
+
+.anim-bubble {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: bubble var(--dur, 1.8s) ease-out infinite;
+  opacity: 0;
+}
+@keyframes bubble {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.anim-steam {
+  animation: steam var(--dur, 4s) ease-out infinite;
+  opacity: 0;
+}
+@keyframes steam {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(var(--dx, 10px), -70px) scale(1.6);
+    opacity: 0;
+  }
+}
+
+.anim-petal {
+  animation: petal var(--dur, 9s) linear infinite;
+  opacity: 0;
+}
+@keyframes petal {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(var(--dx, 120px), 420px) rotate(var(--rot, 300deg));
+    opacity: 0;
+  }
+}
+
+/* ---------- Pause + reduced motion ---------- */
+.is-paused .svg-anim,
+.is-paused [class*='anim-'],
+.is-paused [class*='arm-'] {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*='anim-'],
+  [class*='arm-'] {
+    animation: none !important;
+  }
+  .anim-float,
+  .anim-smoke,
+  .anim-note,
+  .anim-petal,
+  .anim-steam,
+  .anim-ripple,
+  .anim-bubble {
+    opacity: 0 !important;
+  }
+  .anim-stream {
+    opacity: 0.9 !important;
+  }
+}
+
+/* Range slider */
+input[type='range'].gold-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffd166 var(--fill, 60%), rgba(255, 255, 255, 0.22) var(--fill, 60%));
+  outline-offset: 6px;
+}
+input[type='range'].gold-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffe29a;
+  box-shadow: 0 0 10px #ffb347;
+  border: 0;
+}
+input[type='range'].gold-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffe29a;
+  box-shadow: 0 0 10px #ffb347;
+  border: 0;
+}
